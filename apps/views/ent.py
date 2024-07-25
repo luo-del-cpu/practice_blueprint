@@ -5,6 +5,6 @@ from flask import Blueprint
 ent_bp = Blueprint('ent', __name__, url_prefix='/ent')
 
 
-@ent_bp.route('/')
+@ent_bp.route('/',endpoint='index')
 def ent_index():
     return '娱乐首页'

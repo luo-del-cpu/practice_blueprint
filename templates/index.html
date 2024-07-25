@@ -5,8 +5,9 @@
     <title>首页</title>
 </head>
 <body>
-<h1>
-  首页
-</h1>
+<!-- 在url_for使用时需要注意加两个花括号,且其中的视图函数需要加单引号，因为要求传字符串-->
+<a href="{{url_for('house.index')}}">房产</a>
+<a href="{{url_for('ent.index')}}">娱乐</a>
+<a href="{{url_for('blog.index')}}">博客</a>
 </body>
 </html>

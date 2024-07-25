@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>博客首页</title>
+    <style>
+        .box{
+            width:50%;
+            padding:20px;
+            border-bottom:1px dashed gray
+        }
+        .box{
+            font-size:12px;
+            color:gray;
+        }
+        .box h3 {
+           font-weight:bold;
+        }
+    </style>
+</head>
+<body>
+{% if blogs%}
+    {% for blog in blogs %}
+        <div class="box">
+            <h3>{{blog.title }}</h3>
+            <p>{{blog.content}}</p>
+            <p>
+                作者：<span>{{ blog.author }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                发布时间：<span>{{ blog.datetime }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                阅读量：<span>{{ blog.click_num }}</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="{{url_for('blog.delete',id=loop.index0)}}">删除</a>
+            </p>
+        </div>
+    {% endfor %}
+<a href="{{url_for('blog.add')}}">发表新文章</a>
+{% else %}
+    没有文章，<a href="{{url_for('blog.add')}}">发表</a>文章
+{% endif %}
+</body>
+</html>
