@@ -2,6 +2,7 @@
 # @Author : luoxin
 from flask import Blueprint
 from sqlalchemy import or_
+from sqlalchemy.testing import in_
 
 from apps.user.models import User
 from exts import db
@@ -89,9 +90,15 @@ def biao_get1():
     # u=User.query.filter(User.age.__gt__(12)).all()
 
     # 也可以使用or_ 或 and_ 或not_ 多条件查询
-    u = User.query.filter(or_(User.name.startswith('l'),User.name.endswith('l'))).all()
+    # u = User.query.filter(or_(User.name.startswith('l'), User.name.endswith('l'))).all()
     # 查询不包含i的对象
     # u=User.query.filter(not_(User.name.contains('l'))).all()
+
+    # 也可以使用in_ 查询多个符合的字符串
+    # u = User.query.filter(in_([xxx'','xxx'])).all()
+
+    # 也可以使用order_by() 进行排序
+    u = User.query.filter(User.name.in_(['test4','test5'])).all()
 
     # filter_by()过滤:类似于数据库的where等值操作，不用两个==
     # u=User.query.filter_by(age=13)
