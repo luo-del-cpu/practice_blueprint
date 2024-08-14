@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户中心</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}"> <!-- 假设CSS在styles.css文件中 -->
+</head>
+<body>
+    <h1>用户中心</h1>
+    <div class="action-buttons">
+        <a href="{{url_for('user.register')}}" class="button">注册</a>
+        <a href="#" class="button" onclick="alert('登录功能未实现，请联系管理员。')">登录</a>
+        <a href="#" class="button" onclick="alert('退出功能未实现，假设您已登录。')">退出</a>
+    </div>
+
+    <h2>用户信息</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>姓名</th>
+                <th>密码</th>
+                <th>邮箱</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 使用Jinja2的条件语句来判断是否显示“无用户信息” -->
+            {% if not users %}
+                <tr class="no-user-info">
+                    <td colspan="4">无用户信息</td>
+                </tr>
+            {% else %}
+                <!-- 如果有用户，则遍历users列表并显示每个用户的信息 -->
+                {% for user in users %}
+                    <tr>
+                        <td>{{user.name}}</td>
+                        <td>{{user.password}}</td>
+                        <td>{{user.email}}</td>
+                        <td>
+                            <a href="">更新</a>
+                            <a href="">删除</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+</body>
+</html>

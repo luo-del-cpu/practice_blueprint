@@ -8,7 +8,8 @@
 class Config:
     DEBUG = False
     TESTING=False
-    DATABASE_URI=''
+    # mysql+pymysql://user:password@host:port/database
+    SQLALCHEMY_DATABASE_URI='mysql+pymysql://hhpmmxobithcux:12345678@db4free.net:3306/study_tester'
 
 class DevelopmentConfig(Config):
     DEBUG = True

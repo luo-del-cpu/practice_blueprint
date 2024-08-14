@@ -1,0 +1,39 @@
+SQLAlchemy:
+    每一个由sqlalchemy创建的类就相当于数据库的表,可以再类中使用 __tablename__='xxx'重新命名
+    属性对应的就是表中的字段
+    对象就是表中的每行数据
+
+准备活动：
+    1：准备数据库驱动:
+        pip3 install pymysql
+    2：下载flask对应版本的sqlalchem做数据关系映射
+        pip3 install flask-sqlalchemy
+    3：下载flask-migrate用于迁移数据库
+        pip3 install flask-migrate
+    4：在：项目目录/apps/exts.py中初始化Migrate和SQLAlchemy
+        # 1:导入第三方插件
+        from flask_sqlalchemy import SQLAlchemy
+        from flask_migrate import Migrate
+
+        # 2:初始化sqlalchemy、migrate对象
+        db = SQLAlchemy() # 用于数据库映射
+        migrate = Migrate() # 用与数据迁移
+
+        # 3:和app对象绑定
+        def init_exts(app):
+            db.init_app(app=app)
+            migrate.init_app(app=app,db=db)
+    5：在：项目目录/apps的init.py中初始化插件
+        在create_app()函数中初始化：init_exts(app=app)
+    6：在models中定义好模型，注意要将插件中的db导入
+        from apps.exts import db
+    7：在app.py中导入models模块，否则无法初始化数据库
+        例如：from apps.models.user import *
+    8：执行数据库迁移命令
+        8.1：进入app.py所在目录
+        8.2：执行数据库迁移命令
+            flask db init 创建数据库迁移目录migrates，只执行一次
+            flask db migrate 创建数据库迁移文件
+            flask db upgrate 执行迁移文件的升级
+            flask db downgrade 执行迁移文件的降级
+

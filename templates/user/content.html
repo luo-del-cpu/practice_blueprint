@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>用户信息表</title>
+    <style>
+        /* 表格样式 */
+        table {
+            width: 100%;
+            border-collapse: collapse; /* 边框合并为一个单一的边框 */
+            margin: 20px 0;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left; /* 左对齐文本 */
+            border-bottom: 1px solid #ddd; /* 添加底部边框 */
+        }
+
+        th {
+            background-color: #f2f2f2; /* 表头背景色 */
+            color: #333; /* 表头文字颜色 */
+        }
+
+        /* 特定类的样式，用于“无用户信息”提示 */
+        .no-user-info td {
+            text-align: center; /* 居中显示文本 */
+            font-style: italic; /* 斜体文本 */
+            background-color: #f9f9f9; /* 轻微背景色，与表格其他部分区分 */
+        }
+
+        /* 鼠标悬停在行上时的样式 */
+        tr:hover {
+            background-color: #f5f5f5; /* 浅灰色背景 */
+        }
+
+        /* 链接样式 */
+        a {
+            text-decoration: none; /* 去除下划线 */
+            color: #007bff; /* 蓝色链接 */
+            margin: 0 5px; /* 链接之间的间距 */
+        }
+
+        a:hover {
+            text-decoration: underline; /* 鼠标悬停时添加下划线 */
+        }
+    </style>
+</head>
+<body>
+    <h1>用户中心</h1>
+    <div>
+        <!-- 假设这些链接应该通过JavaScript处理，但这里使用#作为占位符 -->
+        <a href="{{url_for('user.register')}}" class="button  ">注册</a>
+        <a href="{{url_for('user.login')}}" class="button">登录</a>
+        <a href="#" class="button" onclick="alert('退出功能未实现，假设您已登录。')">退出</a>
+    </div>
+
+    <h2>用户信息</h2>
+    <!-- 假设这里通过JavaScript动态填充用户信息，但先显示无用户信息的提示 -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>姓名</th>
+                <th>密码</th>
+                <th>邮箱</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- 使用Jinja2的条件语句来判断是否显示“无用户信息” -->
+            {% if not users %}
+                <tr class="no-user-info">
+                    <td colspan="4">无用户信息</td>
+                </tr>
+            {% else %}
+                <!-- 如果有用户，则遍历users列表并显示每个用户的信息 -->
+                {% for user in users %}
+                    <tr>
+                        <td>{{user.name}}</td>
+                        <td>{{user.password}}</td>
+                        <td>{{user.email}}</td>
+                        <td>
+                            <a href="">更新</a>
+                            <a href="">删除</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
+        </tbody>
+    </table>
+
+    <script>
+        // 这里可以添加JavaScript代码来处理用户信息的显示
+        // 但由于这是一个静态HTML示例，我们不会在这里实现它
+    </script>
+</body>
+</html>
