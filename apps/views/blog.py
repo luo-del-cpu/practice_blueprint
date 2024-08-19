@@ -18,7 +18,7 @@ blogs = []
 
 
 # 首页
-@blog_bp.route('/', endpoint='index')
+@blog_bp.route('/index', endpoint='index')
 def blog_index():
     # blog = Blog('创业者个人故事片要怎么策划拍摄?',
     #             '在当今这个充满机遇与挑战的时代，创业者们的故事总能引起人们的共鸣。他们或从零开始，历经艰辛，最终成就一番事业；或不断创新，引领行业潮流，成为行业...',

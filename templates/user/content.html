@@ -57,13 +57,21 @@
     </div>
 
     <h2>用户信息</h2>
+    <!-- 引入jQuery库 -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- 添加搜索框 -->
+    <div>
+        <input type="text" id="searchInput" placeholder="搜索用户或邮箱...">
+        <button id="searchBtn">搜索</button>
+    </div>
     <!-- 假设这里通过JavaScript动态填充用户信息，但先显示无用户信息的提示 -->
     <table border="1">
         <thead>
             <tr>
                 <th>姓名</th>
-                <th>密码</th>
                 <th>邮箱</th>
+                <th>注册时间</th>
+                <th>是否删除</th>
                 <th>操作</th>
             </tr>
         </thead>
@@ -78,11 +86,12 @@
                 {% for user in users %}
                     <tr>
                         <td>{{user.name}}</td>
-                        <td>{{user.password}}</td>
                         <td>{{user.email}}</td>
+                        <td>{{user.rdatetime}}</td>
+                        <td>{{user.is_delete}}</td>
                         <td>
-                            <a href="">更新</a>
-                            <a href="">删除</a>
+                            <a href="{{url_for('user.update')}}?id={{user.id}}">更新</a>
+                            <a href="{{url_for('user.delete')}}?id={{user.id}}">删除</a>
                         </td>
                     </tr>
                 {% endfor %}
@@ -91,8 +100,25 @@
     </table>
 
     <script>
-        // 这里可以添加JavaScript代码来处理用户信息的显示
-        // 但由于这是一个静态HTML示例，我们不会在这里实现它
+        $(document).ready(function() {
+            // 绑定点击事件到搜索按钮
+            $('#searchBtn').click(function() {
+                performSearch();
+            });
+
+            // 绑定键盘事件，如按下Enter键时触发搜索
+            $('#searchInput').keypress(function(e) {
+                if(e.which == 13) {
+                    performSearch();
+                }
+            });
+
+            function performSearch() {
+                let content = $("#searchInput").val();
+                let searchUrl = "{{ url_for('user.search') }}";  // 在HTML中定义URL
+                location.href = searchUrl + '?search=' + encodeURIComponent(content);
+            }
+        });
     </script>
 </body>
 </html>

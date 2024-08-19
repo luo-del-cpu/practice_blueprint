@@ -97,8 +97,15 @@ def biao_get1():
     # 也可以使用in_ 查询多个符合的字符串
     # u = User.query.filter(in_([xxx'','xxx'])).all()
 
-    # 也可以使用order_by() 进行排序
-    u = User.query.filter(User.name.in_(['test4','test5'])).all()
+    # 也可以使用order_by() 进行排序，默认升序；使用desc()降序
+    #u = User.query.filter(User.name.in_(['test4','test5'])).order_by('name').all()
+    #u = User.query.order_by(User.name.desc()).all()
+
+    # limit限制取的数量
+    # 取前两条
+    # u = User.query.limit(2).all()
+    # 跳过两条，在取两条
+    u = User.query.offset(2).limit(2).all()
 
     # filter_by()过滤:类似于数据库的where等值操作，不用两个==
     # u=User.query.filter_by(age=13)
